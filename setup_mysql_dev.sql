@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 
 -- Check if the database hbnb_dev_db already exists
 CREATE DATABASE IF NOT EXISTS hbnb_dev_db;

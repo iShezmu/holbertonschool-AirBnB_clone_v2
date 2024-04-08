@@ -7,6 +7,7 @@ from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
 
+
 class BaseModel(Base):
     """A base class for all hbnb models"""
 
@@ -48,7 +49,9 @@ class BaseModel(Base):
 
     def to_dict(self):
         """Convert instance into dict format"""
-        new_dict = {key: value for key, value in self.__dict__.items() if key != '_sa_instance_state'}
+        new_dict = {key: value for key,
+                    value in self.__dict__.items()
+                    if key != '_sa_instance_state'}
         new_dict['__class__'] = self.__class__.__name__
         new_dict['created_at'] = self.created_at.isoformat()
         new_dict['updated_at'] = self.updated_at.isoformat()

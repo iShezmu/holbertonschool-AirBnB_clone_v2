@@ -8,9 +8,12 @@ import models
 
 place_amenity = Table(
     'place_amenity', Base.metadata,
-    Column('place_id', String(60), ForeignKey('places.id'), primary_key=True, nullable=False),
-    Column('amenity_id', String(60), ForeignKey('amenities.id'), primary_key=True, nullable=False)
+    Column('place_id', String(60), ForeignKey('places.id'),
+           primary_key=True, nullable=False),
+    Column('amenity_id', String(60), ForeignKey('amenities.id'),
+           primary_key=True, nullable=False)
 )
+
 
 class Place(BaseModel, Base):
     """ A place to stay """
@@ -30,8 +33,11 @@ class Place(BaseModel, Base):
     user = relationship("User", back_populates="places")
 
     if getenv('HBNB_TYPE_STORAGE') == 'db':
-        reviews = relationship("Review", back_populates="place", cascade="all, delete, delete-orphan")
-        amenities = relationship("Amenity", secondary=place_amenity, back_populates="place_amenities", viewonly=False)
+        reviews = relationship("Review", back_populates="place",
+                               cascade="all, delete, delete-orphan")
+        amenities = relationship("Amenity", secondary=place_amenity,
+                                 back_populates="place_amenities",
+                                 viewonly=False)
     else:
         @property
         def reviews(self):
@@ -55,7 +61,10 @@ class Place(BaseModel, Base):
 
         @amenities.setter
         def amenities(self, obj):
-            """Setter for amenities that adds an Amenity.id to the amenity_ids"""
+            """
+            Setter for amenities that adds an
+            Amenity.id to the amenity_ids
+            """
             if getenv('HBNB_TYPE_STORAGE') != 'db':
                 if not isinstance(obj, models.Amenity):
                     return

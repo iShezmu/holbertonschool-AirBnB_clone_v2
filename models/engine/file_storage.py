@@ -20,13 +20,13 @@ class FileStorage:
         If a cls is specified, returns a dictionary of model of that class.
         """
         if cls is None:
-            return FileStorage.__objects
+            return self.__objects
         else:
-            cls_dict = {}
-            for key, value in FileStorage.__objects.items():
-                if instance(value, cls):
-                    cls_dict[key] = value
-            return cls_dict
+            cls_objects = {}
+            for key, value in self.__objects.items():
+                if isinstance(value, cls):
+                    cls_objects[key] = value
+            return cls_objects
 
     def new(self, obj):
         """Adds new object to storage dictionary"""
